@@ -52,12 +52,25 @@ const listsAreEqual = (a: string[], b: string[]): boolean => {
   return a.every((value, index) => value === b[index]);
 };
 
-const fetchJSON = async <T>(input: RequestInfo, init?: RequestInit): Promise<T> => {
-  const response = await fetch(input, init);
-  if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`);
+const fetchJSON = async <T>(input: RequestInfo, init?: RequestInit, timeout: number = 5000): Promise<T> => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(input, {
+      ...init,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`Request failed: ${response.status}`);
+    }
+    return response.json() as Promise<T>;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
   }
-  return response.json() as Promise<T>;
 };
 
 const withFallback = async <T>(fn: () => Promise<T>, fallback: () => T): Promise<T> => {
