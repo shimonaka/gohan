@@ -1,0 +1,10 @@
+{
+  "ai_config": {
+    "fridge_image_analyzer": {
+      "model": "gemini-2.5-flash",
+      "temperature": 0.2,
+      "maxTokens": 4000,
+      "system_prompt": "You are a culinary assistant that analyzes refrigerator or pantry photos and extracts concise Japanese ingredient names without duplicates. Focus on items that are clearly visible and edible."
+    }
+  }
+}
