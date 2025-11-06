@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# 🍚 今日のゴハン、何にする？
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+毎日の献立を考える手間と、それに伴う買い物の手間を削減するWebアプリです。
 
-Currently, two official plugins are available:
+## 🎯 アプリの特徴
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **1週間分の献立提案**: 毎週の献立を自動提案
+- **クックパッド連携**: 各メニューのレシピをワンクリックで検索
+- **賢い買い物リスト**: 冷蔵庫の中身を考慮した買い物リストを自動生成
+- **冷蔵庫管理**: 家にある食材を簡単に管理
 
-## React Compiler
+## 🛠 技術スタック
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 18** - UIライブラリ
+- **TypeScript** - 型安全な開発
+- **Vite** - 高速ビルドツール
+- **React Router v6** - ページ遷移
+- **TailwindCSS** - モダンなスタイリング
+- **localStorage** - データの永続化
 
-## Expanding the ESLint configuration
+## 🚀 開発環境のセットアップ
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 前提条件
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18以上
+- npm または yarn
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### インストール
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
+npm run dev
+
+# ビルド
+npm run build
+
+# プレビュー
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📁 プロジェクト構成
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── screens/              # 画面コンポーネント
+│   ├── InitialSetupScreen.tsx      # ホーム画面
+│   ├── RefrigeratorScreen.tsx      # 冷蔵庫管理
+│   ├── MenuSuggestionScreen.tsx    # 献立提案
+│   └── ShoppingListScreen.tsx      # 買い物リスト
+├── components/           # 共通コンポーネント
+│   └── Navigation.tsx              # ナビゲーション
+├── data/                # データ定義
+│   └── menuData.ts                 # 献立データ
+├── App.tsx              # ルーティング
+└── main.tsx             # エントリーポイント
+```
+
+## 💡 使い方
+
+1. **冷蔵庫の中身を登録**: 家にある食材を登録
+2. **献立を確認**: 今週のおすすめ献立をチェック
+3. **買い物リストを作成**: 必要な食材を自動でリストアップ
+
+## 🔮 今後の予定
+
+- AI（Claude API）を使った献立の自動生成
+- 家族構成・アレルギー情報の管理
+- 栄養バランスの分析
+- カロリー計算機能
+- レシピのお気に入り登録
+
+## 📝 ライセンス
+
+MIT License
