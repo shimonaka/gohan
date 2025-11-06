@@ -11,12 +11,17 @@
 
 ## 🛠 技術スタック
 
+### フロントエンド
 - **React 18** - UIライブラリ
 - **TypeScript** - 型安全な開発
 - **Vite** - 高速ビルドツール
 - **React Router v6** - ページ遷移
 - **TailwindCSS** - モダンなスタイリング
-- **localStorage** - データの永続化
+
+### バックエンド
+- **Cloudflare Workers** - サーバーレス実行環境
+- **Cloudflare D1** - SQLiteベースのデータベース
+- **Zod** - スキーマバリデーション
 
 ## 🚀 開発環境のセットアップ
 
@@ -24,8 +29,9 @@
 
 - Node.js 18以上
 - npm または yarn
+- Cloudflareアカウント（バックエンドのデプロイに必要）
 
-### インストール
+### フロントエンドのセットアップ
 
 ```bash
 # 依存関係のインストール
@@ -40,6 +46,41 @@ npm run build
 # プレビュー
 npm run preview
 ```
+
+### バックエンドのセットアップ
+
+```bash
+# バックエンドディレクトリに移動
+cd backend
+
+# 依存関係のインストール
+npm install
+
+# Cloudflareにログイン
+npx wrangler login
+
+# D1データベースを作成
+npx wrangler d1 create gohan-db
+
+# 上記コマンドの出力からdatabase_idをコピーし、wrangler.tomlのdatabase_idを更新
+
+# データベースのスキーマを適用
+npx wrangler d1 execute gohan-db --file=./schema.sql
+
+# ローカル開発サーバーの起動
+npm run dev
+
+# 本番環境へのデプロイ
+npm run deploy
+```
+
+### バックエンドのデプロイ後
+
+1. デプロイされたWorkerのURLを確認
+2. フロントエンドの以下のファイルでAPI_BASEを更新：
+   - `src/utils/planner.ts`
+   - `src/utils/mealGoalStorage.ts`
+3. 例: `const API_BASE = 'https://gohan-backend.your-subdomain.workers.dev';`
 
 ## 📁 プロジェクト構成
 

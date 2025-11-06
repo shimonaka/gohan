@@ -1,13 +1,14 @@
-# Cloudflare Worker Configuration Template
-# Copy this file to: backend/wrangler.toml
+# Cloudflare Worker Configuration
 
 name = "gohan-backend"
 main = "src/index.ts"
 compatibility_date = "2025-11-01"
 compatibility_flags = ["nodejs_compat"]
 
-# D1 Database binding (configured by deployment tool)
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "your-database"
-# database_id = "your-database-id"
+# D1 Database binding
+# For local development, this will use a local SQLite database
+# For production, you need to create a D1 database and update the database_id
+[[d1_databases]]
+binding = "DB"
+database_name = "gohan-db"
+database_id = "00000000-0000-0000-0000-000000000000"  # Placeholder - update with your D1 database ID for production

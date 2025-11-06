@@ -41,3 +41,9 @@ Thumbs.db
 # Backend output
 backend/output
 
+# Wrangler local state
+.wrangler/
+backend/.wrangler/
+.dev.vars
+backend/.dev.vars
+
