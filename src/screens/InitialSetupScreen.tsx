@@ -1,24 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MEAL_GOALS, type MealGoalDefinition } from '../data/mealGoals';
 import { useMealGoal } from '../context/mealGoalContext';
-
-const features = [
-  {
-    icon: '📅',
-    title: '1週間分の献立提案',
-    description: '毎週の献立をご提案。各料理のレシピはクックパッドですぐにチェックできます。',
-  },
-  {
-    icon: '🛒',
-    title: '賢い買い物リスト',
-    description: '冷蔵庫の食材と照らし合わせて、買うべきものだけをピックアップします。',
-  },
-  {
-    icon: '❄️',
-    title: '冷蔵庫管理',
-    description: '家にある食材を整理して、重複購入やフードロスを防ぎましょう。',
-  },
-];
 
 const steps = [
   {
@@ -53,9 +35,12 @@ const steps = [
 
 export default function InitialSetupScreen() {
   const { goal, isLoading, updateGoal } = useMealGoal();
+  const navigate = useNavigate();
 
   const handleGoalClick = async (goalDefinition: MealGoalDefinition) => {
     await updateGoal(goalDefinition.id);
+    // 献立方針を選択したら冷蔵庫画面へ自動遷移
+    navigate('/refrigerator');
   };
 
   return (
@@ -96,7 +81,7 @@ export default function InitialSetupScreen() {
           </div>
           <div>
             <h2 className="panel-heading" id="goal-section-title">献立の方針を選びましょう</h2>
-            <p className="panel-meta">目的を選ぶと、1週間の献立と買い物リストに反映されます。</p>
+            <p className="panel-meta">目的を選ぶと、冷蔵庫登録画面に進みます。後から変更も可能です。</p>
           </div>
           <div className="goal-grid" role="list">
             {MEAL_GOALS.map((goalDefinition) => {
@@ -130,9 +115,9 @@ export default function InitialSetupScreen() {
                     className={`primary-pill goal-select-button ${isActive ? 'selected' : ''}`}
                     onClick={() => void handleGoalClick(goalDefinition)}
                     aria-pressed={isActive}
-                    aria-label={`${goalDefinition.name} を選択`}
+                    aria-label={`${goalDefinition.name} を選択して次へ`}
                   >
-                    {isActive ? '選択中の方針' : 'この方針を選ぶ'}
+                    {isActive ? '選択中の方針' : 'この方針で次へ進む'}
                     <span aria-hidden>→</span>
                   </button>
                 </article>
@@ -142,18 +127,6 @@ export default function InitialSetupScreen() {
           <footer className="panel-footer">
             <p className="panel-caption">※ 選択した目的は後から変更できます。食材登録や献立作成に活用されます。</p>
           </footer>
-        </section>
-
-        <section className="feature-grid">
-          {features.map((feature) => (
-            <article key={feature.title} className="feature-card">
-              <span className="feature-icon">{feature.icon}</span>
-              <div className="feature-copy">
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-description">{feature.description}</p>
-              </div>
-            </article>
-          ))}
         </section>
 
         <section className="step-card">
